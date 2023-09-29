@@ -8,6 +8,22 @@
             src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"
             integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9"
             crossorigin="anonymous"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var scrollTopLink = document.getElementById("logo");
+    
+                // Detecta el evento de clic en el enlace
+                scrollTopLink.addEventListener("click", function(event) {
+                    event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+    
+                    // Desplaza la página hacia la parte superior
+                     window.scrollTo({
+                        top: 0,
+                        behavior: "smooth" // Animación de desplazamiento suave
+                    });
+                });
+            });
+        </script>
 
         <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css')}}">
     </head>
@@ -16,16 +32,16 @@
             <!-- HEADER -->
             <header>
                 <div class="flixnetLogo">
-                    <a id="logo" href="#up"><img
+                    <a id="logo" href="#"><img
                             src="{{ url_for('static', filename = 'resources/logo.png')}}"
                             alt="Logo Image"></a>
                 </div>
                 <nav class="main-nav">
-                    <a href="#home">Home</a>
-                    <a href="#tvShows">TV Shows</a>
-                    <a href="#movies">Movies</a>
-                    <a href="#originals">Originals</a>
-                    <a href="#">Recently Added</a>
+                    <a href="#home">Inicio</a>
+                    <a href="#tvShows">Series</a>
+                    <a href="#movies">Peliculas</a>
+                    <a href="#originals">Originales</a>
+                    <a href="#">Añadido recientemente</a>
                     <a href="{{ url_for('prueba')}}">Prueba </a>
                 </nav>
                 <nav class="sub-nav">
@@ -41,7 +57,7 @@
             <div class="up"></div>
             <section class="main-container">
                 <div class="location" id="home">
-                    <h1 id="home">Popular on Flixnet</h1>
+                    <h1 id="home">Popular en Flixnet</h1>
                     <div class="box">
                         <a href="#">
                             <div class="content">
@@ -113,18 +129,18 @@
                     </div>
                     <div class="sub-links">
                         <ul>
-                            <li><a href="#">Audio and Subtitles</a></li>
-                            <li><a href="#">Audio Description</a></li>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Gift Cards</a></li>
-                            <li><a href="#">Media Center</a></li>
-                            <li><a href="#">Investor Relations</a></li>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Privacy</a></li>
-                            <li><a href="#">Legal Notices</a></li>
-                            <li><a href="#">Corporate Information</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Audio y Subtitulos</a></li>
+                            <li><a href="#">Descripcion de Audio</a></li>
+                            <li><a href="#">Centro de Ayuda</a></li>
+                            <li><a href="#">Tarjeta regalo</a></li>
+                            <li><a href="#">Centro de Prensa</a></li>
+                            <li><a href="#">Inversores</a></li>
+                            <li><a href="#">Trabajos</a></li>
+                            <li><a href="#">Terminos de Uso</a></li>
+                            <li><a href="#">Privacidad</a></li>
+                            <li><a href="#">Noticias Legales</a></li>
+                            <li><a href="#">Informacion Corporativa</a></li>
+                            <li><a href="#">Contactanos</a></li>
                         </ul>
                     </div>
                 </section>
