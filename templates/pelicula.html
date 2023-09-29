@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Flixnet</title>
+    <title>{{contenido}}</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename = 'css/index.css')}}"
@@ -48,7 +48,7 @@
           /></a>
         </div>
         <nav class="main-nav">
-          <a href="#">Inicio</a>
+          <a href="/">Inicio</a>
           <a href="#">Series</a>
           <a href="#">Peliculas</a>
           <a href="#">Originales</a>
@@ -64,76 +64,25 @@
       <!-- END OF HEADER -->
 
       <!-- MAIN CONTAINER -->
-      <section class="main-container">
-        <div class="location" id="home">
-          <h1 id="home">Popular en Flixnet</h1>
-          <div class="box">
-            <a href="/el-caballero-oscuro">
-              <div class="content">
-                <p>El Caballero Oscuro</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/el-caballero-oscuro.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/infierno-blanco">
-              <div class="content">
-                <p>Infierno Blanco</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/infierno-blanco.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/interestelar">
-              <div class="content">
-                <p>Interestelar</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/interestelar.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/marte">
-              <div class="content">
-                <p>Marte</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/marte.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/ready-player-one">
-              <div class="content">
-                <p>Ready Player One</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/ready-player-one.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/top-gun">
-              <div class="content">
-                <p>Top Gun</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/top-gun.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/tron">
-              <div class="content">
-                <p>Tron</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/tron.jpg')}}"
-                alt=""
-              />
-            </a>
+      <main>
+        <div class="main-container">
+          <div class="contenedor">
+            <h3 id="titulo">{{contenido}}</h3>
+            <p class="descripcion">
+              Narra las aventuras de un grupo de exploradores que hacen uso de
+              un agujero de gusano recientemente descubierto para superar las
+              limitaciones de los viajes espaciales tripulados y vencer las
+              inmensas distancias que tiene un viaje interestelar.
+            </p>
+            <button role="button" class="button">
+              <i class="fas fa-play"></i>Reproducir
+            </button>
+            <button role="button" class="button">
+              <i class="fas fa-plus"></i>Añadir a la lista
+            </button>
           </div>
         </div>
-      </section>
+      </main>
       <!-- END OF MAIN CONTAINER -->
 
       <!-- LINKS -->

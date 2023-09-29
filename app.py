@@ -19,9 +19,12 @@ def index():
     """
     return render_template('index.html')
 
-@app.route('/prueba')
-def prueba():
-    return render_template('prueba.html')
+@app.route('/<pelicula>')
+def pelicula(pelicula):
+    archivo = pelicula
+    palabras = pelicula.split("-")  # Dividir la cadena en palabras usando "-" como separador
+    texto_formateado = " ".join(palabra.lower() .title() for palabra in palabras)
+    return render_template('pelicula.html', contenido = texto_formateado, archivo = archivo)
 
 """ METODO AÑADIR A LA BASE DE DATOS
 @app.route('/insertar', methods=['POST'])
@@ -51,5 +54,10 @@ def eliminar(id):
     else:
         return "Error al conectar a la base de datos"
 """
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('pnf.html'), 404
+
 if __name__ == '__main__':
     app.run(debug=True)

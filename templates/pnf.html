@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Not Found!</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/pnf.css')}}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename = 'resources/icon/icon.ico')}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <div class="container-flex">
+            <div class="container">
+                <h1>#404</h1>
+                <br/>
+                <a class="button" href="{{url_for('index')}}">Vuelta a inicio</a>
+            </div>
+        </div>
+    </body>
+</html>

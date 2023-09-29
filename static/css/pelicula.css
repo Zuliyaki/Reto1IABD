@@ -22,11 +22,6 @@ img {
     max-width: 100%;
 }
 
-h1 {
-    font: 900 28px sans-serif;
-    padding-top: 60px;
-}
-
 .wrapper {
     margin: 0;
     padding: 0;
@@ -64,14 +59,14 @@ header {
 
 #logo {
     color: #E50914;
-    margin: 40;
+    margin: 0;
     padding: 0;
 }
 
 
 .main-nav {
     grid-area: mn;
-    padding: 10 30px 30px 20px;
+    padding: 10 30px 0 20px;
     font: sans-serif;
 }
 
@@ -104,48 +99,8 @@ header {
 /* MAIN CONTIANER */
 .main-container {
     padding: 5%;
-}
-
-.box {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(6, minmax(100px, 1fr));
-    z-index: 0;
-}
-
-.box a {
-    transition: transform .3s;
-    z-index: 0;
-}
-
-.content {
-    position: absolute;
-    top: 100px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 0.60);
-    color: #000000;
-    visibility: hidden;
-    opacity: 0;
-    padding-left: 20px;
-  }
-
-.box a:hover {
-    transition: transform .3s;
-    -ms-transform: scale(1.4);
-    -webkit-transform: scale(1.4);
-    transform: scale(1.4);
-    z-index: 1;
-
-    .content {
-        visibility: visible;
-        opacity: 1;
-      }
-}
-
-.box img {
-    border-radius: 2px;
+    font-size: 60px;
+    background: url(../resources/images/el-caballero-oscuro.jpg);
 }
 
 /* LINKS */
@@ -201,12 +156,6 @@ footer {
             "mn mn mn mn mn mn  mn mn mn mn";
     }
 
-    .box {
-        display: grid;
-        grid-gap: 20px;
-        grid-template-columns: repeat(4, minmax(100px, 1fr));
-    }
-
 }
 
 @media(max-width: 700px) {
@@ -218,12 +167,6 @@ footer {
         grid-template-areas:
             "nt nt nt  .  .  . sb . . . "
             "mn mn mn mn mn mn  mn mn mn mn";
-    }
-
-    .box {
-        display: grid;
-        grid-gap: 20px;
-        grid-template-columns: repeat(3, minmax(100px, 1fr));
     }
 
     .sub-links ul {
@@ -260,23 +203,9 @@ footer {
         padding-right: 20px;
     }
     
-    h1 {
+    h3 {
         text-align: center;
-        font-size: 18px;
-    }
-
-    .box {
-        display: grid;
-        grid-gap: 20px;
-        grid-template-columns: repeat(1, 1fr);
-        text-align: center;
-    }
-
-    .box a:hover {
-        transition: transform .3s;
-        -ms-transform: scale(1);
-        -webkit-transform: scale(1);
-        transform: scale(1.2);
+        font: 900 18px sans-serif;
     }
 
     .logos {
