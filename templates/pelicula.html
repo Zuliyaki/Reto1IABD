@@ -5,7 +5,7 @@
     <title>{{contenido}}</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename = 'css/index.css')}}"
+      href="{{ url_for('static', filename = 'css/pelicula.css')}}"
     />
     <link
       rel="icon"
@@ -65,20 +65,20 @@
 
       <!-- MAIN CONTAINER -->
       <main>
-        <div class="main-container">
+        <div class="main-container" style="background: linear-gradient(rgba(0, 0, 0, .50) 0%, rgba(0, 0, 0, .50) 100%), url({{ url_for('static', filename = 'resources/images/' ~ archivo ~ '.jpg')}}); background-position: center center; background-size: cover;">
           <div class="contenedor">
-            <h3 id="titulo">{{contenido}}</h3>
+            <h3 class="titulo">{{contenido}}</h3>
             <p class="descripcion">
               Narra las aventuras de un grupo de exploradores que hacen uso de
               un agujero de gusano recientemente descubierto para superar las
               limitaciones de los viajes espaciales tripulados y vencer las
               inmensas distancias que tiene un viaje interestelar.
             </p>
-            <button role="button" class="button">
-              <i class="fas fa-play"></i>Reproducir
+            <button role="button" class="boton">
+              <i class="fas fa-play" style="margin-right: 20px;"></i>Reproducir
             </button>
-            <button role="button" class="button">
-              <i class="fas fa-plus"></i>Añadir a la lista
+            <button role="button" class="boton">
+              <i class="fas fa-plus" style="margin-right: 20px;"></i>Añadir a la lista
             </button>
           </div>
         </div>

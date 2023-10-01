@@ -3,11 +3,12 @@
     --primary: #141414;
     --light: #F3F3F3;
     --dark: #686868;
+    --red: #e50914;
 }
 
 html,
 body {
-    width: 100vw;
+    max-width: 100vw;
     min-height: 100vh;
     margin: 0;
     padding: 0;
@@ -58,15 +59,14 @@ header {
 }
 
 #logo {
-    color: #E50914;
-    margin: 0;
+    margin: 40;
     padding: 0;
 }
 
 
 .main-nav {
     grid-area: mn;
-    padding: 10 30px 0 20px;
+    padding: 10 30px 30px 0px;
     font: sans-serif;
 }
 
@@ -82,7 +82,7 @@ header {
 
 .sub-nav {
     grid-area: sb;
-    padding: 10 40px 0 40px;
+    padding: 10 100px 0 40px;
 }
 
 .sub-nav a {
@@ -99,8 +99,48 @@ header {
 /* MAIN CONTIANER */
 .main-container {
     padding: 5%;
-    font-size: 60px;
-    background: url(../resources/images/el-caballero-oscuro.jpg);
+    font-size: 18px;
+    color: var(--light);
+    min-height: 40.62em;
+    max-width: 100%;
+    margin-top: 4em;
+    margin-bottom: 3.12em;
+    display: flex;
+    align-items: end;
+}
+
+.main-container .contenedor {
+    margin: 0 auto;
+    margin-bottom: 6.25em;
+}
+
+.main-container .titulo {
+    font: 600 3.12em sans-serif;
+    margin-bottom: 0.4em;
+}
+
+.main-container .descripcion {
+    font: 1em sans-serif;
+    line-height: 1.75em;
+    max-width: 50%;
+    margin-bottom: 1.25em;
+}
+
+.main-container .boton {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 0.31em;
+    padding: 0.93em 1.87em;
+    color: var(--light);
+    margin-right: 1.25em;
+    cursor: pointer;
+    transition: .3s ease all;
+    font-size: 1.12em;
+}
+
+.main-container .boton:hover {
+    background: var(--light);
+    color: var(--primary);
 }
 
 /* LINKS */

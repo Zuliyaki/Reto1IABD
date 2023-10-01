@@ -3,11 +3,12 @@
     --primary: #141414;
     --light: #F3F3F3;
     --dark: #686868;
+    --red: #e50914;
 }
 
 html,
 body {
-    width: 100vw;
+    max-width: 90vw;
     min-height: 100vh;
     margin: 0;
     padding: 0;
@@ -63,7 +64,6 @@ header {
 }
 
 #logo {
-    color: #E50914;
     margin: 40;
     padding: 0;
 }
@@ -71,7 +71,7 @@ header {
 
 .main-nav {
     grid-area: mn;
-    padding: 10 30px 30px 20px;
+    padding: 10 30px 30px 0px;
     font: sans-serif;
 }
 
@@ -87,7 +87,7 @@ header {
 
 .sub-nav {
     grid-area: sb;
-    padding: 10 40px 0 40px;
+    padding: 10 100px 0 40px;
 }
 
 .sub-nav a {
@@ -108,7 +108,7 @@ header {
 
 .box {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 10px;
     grid-template-columns: repeat(6, minmax(100px, 1fr));
     z-index: 0;
 }
@@ -163,6 +163,7 @@ header {
 
 .sub-links a {
     color: var(--dark);
+    padding-right: 10px;
     text-decoration: none;
 }
 
@@ -172,7 +173,8 @@ header {
 }
 
 .logos a {
-    padding: 10px;
+    padding-left: 0px;
+    padding-right: 10px;
 }
 
 .logo {
