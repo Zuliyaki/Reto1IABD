@@ -49,9 +49,6 @@ header {
     object-fit: cover;
     width: 100px;
     max-height: 100%;
-
-    padding-left: 30px;
-    padding-top: 0px;
 }
 
 .flixnetLogo img {
