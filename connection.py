@@ -4,8 +4,8 @@ def conectar_db():
     try:
         conn = psycopg2.connect(
             database="Netflix",
-            user="postgres",
-            password="postgres",
+            user="Zuli",
+            password="abcd*1234",
             host="192.168.136.133",  # O la dirección IP del servidor PostgreSQL
             port="5432"  # Puerto por defecto de PostgreSQL
         )

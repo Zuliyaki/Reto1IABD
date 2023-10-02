@@ -9,22 +9,29 @@ def index():
     conn = conectar_db()  # Establece la conexión a la base de datos
     if conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM tu_tabla")
+        cursor.execute("SELECT * FROM usuarios")
         registros = cursor.fetchall()
+        print(reg)
         conn.close()
         return render_template('index.html', registros=registros)
     else:
         # Manejo de error de conexión
-        return "Error al conectar a la base de datos"
-    """
+        #return "Error al conectar a la base de datos"""
     return render_template('index.html')
 
-@app.route('/<pelicula>')
-def pelicula(pelicula):
+@app.route('/home/<user>')
+def principal(user):
+    user_title = user.title()
+    return render_template('principal.html', usuario = user_title)
+
+@app.route('/home/<user>/<pelicula>')
+def pelicula(user, pelicula):
+    user_title = user.title()
     archivo = pelicula
     palabras = pelicula.split("-")  # Dividir la cadena en palabras usando "-" como separador
-    texto_formateado = " ".join(palabra.lower() .title() for palabra in palabras)
-    return render_template('pelicula.html', contenido = texto_formateado, archivo = archivo)
+    texto_formateado = " ".join(palabra.lower().title() for palabra in palabras)
+    return render_template('pelicula.html', contenido = texto_formateado, archivo = archivo, usuario = user_title)
+
 
 """ METODO AÑADIR A LA BASE DE DATOS
 @app.route('/insertar', methods=['POST'])

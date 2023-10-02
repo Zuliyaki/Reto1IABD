@@ -2,173 +2,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Flixnet</title>
+    <title>Usuarios</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename = 'css/index.css')}}"
     />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{{ url_for('static', filename = 'resources/icon/icon.ico')}}"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"
-      integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var scrollTopLink = document.getElementById("logo");
-
-        // Detecta el evento de clic en el enlace
-        scrollTopLink.addEventListener("click", function (event) {
-          event.preventDefault(); // Evita el comportamiento predeterminado del enlace
-
-          // Desplaza la página hacia la parte superior
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth", // Animación de desplazamiento suave
-          });
-        });
-      });
-    </script>
   </head>
   <body>
-    <div class="wrapper">
-      <!-- HEADER -->
-      <header>
-        <div class="flixnetLogo">
-          <a id="logo" href="#"
-            ><img
-              src="{{ url_for('static', filename = 'resources/images/logo.png')}}"
-              alt="Logo Image"
-          /></a>
-        </div>
-        <nav class="main-nav">
-          <a href="#">Inicio</a>
-          <a href="#">Series</a>
-          <a href="#">Peliculas</a>
-          <a href="#">Originales</a>
-          <a href="#">Añadido recientemente</a>
-        </nav>
-        <nav class="sub-nav">
-          <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
-          <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-          <a href="#"><i class="fas fa-user sub-nav-logo"></i></a>
-          <a href="#">BBonLLo</a>
-        </nav>
-      </header>
-      <!-- END OF HEADER -->
+    <div class="main-content">
+      <div class="text">
+        <h1>¿Quien esta viendo?</h1>
+      </div>
 
-      <!-- MAIN CONTAINER -->
-      <section class="main-container">
-        <div class="location" id="home">
-          <h1 id="home">Popular en Flixnet</h1>
-          <br/>
-          <div class="box">
-            <a href="/el-caballero-oscuro">
-              <div class="content">
-                <p>El Caballero Oscuro</p>
-              </div>
+      <div class="select_users">
+        <div class="user-one users-text userIt-hv">
+          <div class="user-one users-img">
+            <a href="/home/admin">
               <img
-                src="{{ url_for('static', filename = 'resources/images/el-caballero-oscuro.jpg')}}"
-                alt=""
+                src="https://occ-0-1356-559.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFODe-79HMte1GvxsxPzvEhS4oamceVNh3isrrNF3kcraRbsL9uOcrH0MyKtlmWkLJyKJIxId66coocNnpINTOKpTcQ.png?r=f08"
+                alt="logo de usuario"
               />
             </a>
-            <a href="/infierno-blanco">
-              <div class="content">
-                <p>Infierno Blanco</p>
-              </div>
+            <p>Admin</p>
+          </div>
+        </div>
+
+        <div class="user-two users-text userIt-hv">
+          <div class="userTwo-img users-img">
+            <a href="/home/bonilla">
               <img
-                src="{{ url_for('static', filename = 'resources/images/infierno-blanco.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/interestelar">
-              <div class="content">
-                <p>Interestelar</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/interestelar.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/marte">
-              <div class="content">
-                <p>Marte</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/marte.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/ready-player-one">
-              <div class="content">
-                <p>Ready Player One</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/ready-player-one.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/top-gun">
-              <div class="content">
-                <p>Top Gun</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/top-gun.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/tron">
-              <div class="content">
-                <p>Tron</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/tron.jpg')}}"
-                alt=""
+                src="https://occ-0-1356-559.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFH0VbIGycnpOMaFT5ER1erOVKsxpCLYnZF0-sxIK15G0mY7z7RnNlEEiRFGOOBCJcyB2CEibnXtHsXwNqmcCGg-XlQ.png?r=9fe"
+                alt="logo de usuario"
               />
             </a>
           </div>
+          <p>Bonilla</p>
         </div>
-      </section>
-      <!-- END OF MAIN CONTAINER -->
 
-      <!-- LINKS -->
-      <section class="link">
-        <div class="logos">
-          <a href=""><i class="fab fa-facebook-square fa-2x logo"></i></a>
-          <a href="#"><i class="fab fa-instagram fa-2x logo"></i></a>
-          <a href="#"><i class="fab fa-twitter fa-2x logo"></i></a>
-          <a href="#"><i class="fab fa-youtube fa-2x logo"></i></a>
+        <div class="user-three users-text userIt-hv">
+          <div class="userThree-img users-img">
+            <a href="/home/zuli">
+              <img
+                src="https://occ-0-1356-559.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFM5PrJX0TiFgfm4HOoS76PWmofnZtjwSQQj-dPSEdzfCr8p8wNhjBwMybzmLIAGotByD810aYhO6nG8N8FMUoXG-sg.png?r=ab"
+                alt="logo de usuario"
+              />
+            </a>
+          </div>
+          <p>Zuli</p>
         </div>
-        <div class="sub-links">
-          <ul>
-            <li><a href="#">Audio y Subtitulos</a></li>
-            <li><a href="#">Descripcion de Audio</a></li>
-            <li><a href="#">Centro de Ayuda</a></li>
-            <li><a href="#">Tarjeta regalo</a></li>
-            <li><a href="#">Centro de Prensa</a></li>
-            <li><a href="#">Inversores</a></li>
-            <li><a href="#">Trabajos</a></li>
-            <li><a href="#">Terminos de Uso</a></li>
-            <li><a href="#">Privacidad</a></li>
-            <li><a href="#">Noticias Legales</a></li>
-            <li><a href="#">Informacion Corporativa</a></li>
-            <li><a href="#">Contactanos</a></li>
-          </ul>
-        </div>
-      </section>
-      <!-- END OF LINKS -->
 
-      <!-- FOOTER -->
-      <footer>
-        <p>&copy 2001-2023 Flixnet, Inc.</p>
-        <p>Unai Bonilla & Unai Zuluaga &copy 2023</p>
-      </footer>
+        <div class="user-kids users-text userIt-hv">
+          <div class="userKids-img users-img">
+            <a href="#">
+              <img
+                src="https://occ-0-1356-559.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABcLIHTkNuA8jSxuJlbbZppCm90vEXAZ7nMv9P3Uqv0E-ufs9-AbpdXjBF3dF_imIb966YrjBqk-iJc25JoWLtqtqR5B3.png?r=1b8"
+                alt="logo de usuario"
+              />
+            </a>
+          </div>
+          <p>Infantil (El puto Roke)</p>
+        </div>
+      </div>
+
+      <div class="content-manageProfile">
+        <a href="#" class="manageProfile">Generar perfiles</a>
+      </div>
     </div>
   </body>
 </html>
