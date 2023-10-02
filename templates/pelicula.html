@@ -117,5 +117,23 @@
         <p>Unai Bonilla & Unai Zuluaga &copy 2023</p>
       </footer>
     </div>
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
+  <script>
+    var nombrePeli = {
+      nombre = 1
+    };
+
+    $.ajax({
+      url: '/peli'
+      type: 'POST'
+      dataType: 'json'
+      data: JSON.stringify(nombrePeli)
+      contentType: 'application/json'
+      success: function(response) {
+        alert(response)
+      }
+    });
+  </script>
 </html>

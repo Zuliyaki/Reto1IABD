@@ -1,22 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from connection import conectar_db  # Importa la función conectar_db desde database.py
 
 app = Flask(__name__)
+con = conectar_db()
 
 @app.route('/')
 def index():
-    """
-    conn = conectar_db()  # Establece la conexión a la base de datos
-    if conn:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM usuarios")
-        registros = cursor.fetchall()
-        print(reg)
-        conn.close()
-        return render_template('index.html', registros=registros)
-    else:
-        # Manejo de error de conexión
-        #return "Error al conectar a la base de datos"""
     return render_template('index.html')
 
 @app.route('/home/<user>')
@@ -24,6 +13,8 @@ def principal(user):
     user_title = user.title()
     return render_template('principal.html', usuario = user_title)
 
+# ========= Peliculas =========
+# Abrir pagina web
 @app.route('/home/<user>/<pelicula>')
 def pelicula(user, pelicula):
     user_title = user.title()
@@ -32,6 +23,14 @@ def pelicula(user, pelicula):
     texto_formateado = " ".join(palabra.lower().title() for palabra in palabras)
     return render_template('pelicula.html', contenido = texto_formateado, archivo = archivo, usuario = user_title)
 
+# Pedir pelicula
+@app.route('/peli', methods = ['POST'])
+def peli():
+    data = request.json
+    nombre = data.get('nombre')
+    resultado = con.getPeli(con, nombre)
+    print(resultado)
+    return jsonify(resultado)
 
 """ METODO AÑADIR A LA BASE DE DATOS
 @app.route('/insertar', methods=['POST'])
