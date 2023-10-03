@@ -73,7 +73,7 @@
               limitaciones de los viajes espaciales tripulados y vencer las
               inmensas distancias que tiene un viaje interestelar.
             </p>
-            <button role="button" class="boton">
+            <button role="button" class="boton" onclick="dalePeli();">
               <i class="fas fa-play" style="margin-right: 20px;"></i>Reproducir
             </button>
             <button role="button" class="boton">
@@ -121,15 +121,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
   <script>
-    var nombrePeli = {
-      nombre = 1
+    function dalePeli() {
+      alert(contenido)
+    }
+    alert(contenido)
+
+    var peli = {
+      id = 1
     };
 
     $.ajax({
       url: '/peli'
       type: 'POST'
       dataType: 'json'
-      data: JSON.stringify(nombrePeli)
+      data: JSON.stringify(peli)
       contentType: 'application/json'
       success: function(response) {
         alert(response)

@@ -68,69 +68,17 @@
           <h1 id="home">Popular en Flixnet</h1>
           <br/>
           <div class="box">
-            <a href="/home/{{usuario.lower()}}/el-caballero-oscuro">
-              <div class="content">
-                <p>El Caballero Oscuro</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/el-caballero-oscuro.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/home/{{usuario.lower()}}/infierno-blanco">
-              <div class="content">
-                <p>Infierno Blanco</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/infierno-blanco.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/home/{{usuario.lower()}}/interestelar">
-              <div class="content">
-                <p>Interestelar</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/interestelar.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/home/{{usuario.lower()}}/marte">
-              <div class="content">
-                <p>Marte</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/marte.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/home/{{usuario.lower()}}/ready-player-one">
-              <div class="content">
-                <p>Ready Player One</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/ready-player-one.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/home/{{usuario.lower()}}/top-gun">
-              <div class="content">
-                <p>Top Gun</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/top-gun.jpg')}}"
-                alt=""
-              />
-            </a>
-            <a href="/home/{{usuario.lower()}}/tron">
-              <div class="content">
-                <p>Tron</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/tron.jpg')}}"
-                alt=""
-              />
-            </a>
+            {% for peli in peliculas %}
+              <a href="/home/{{usuario.lower()}}/{{peli[1]}}">
+                <div class="content">
+                  <p>{{peli[0]}}</p>
+                </div>
+                <img
+                  src="{{ url_for('static', filename = 'resources/images/'~ peli[1] ~'.jpg')}}"
+                  alt=""
+                />
+              </a>
+            {% endfor %}
           </div>
         </div>
       </section>

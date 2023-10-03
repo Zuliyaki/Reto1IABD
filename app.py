@@ -1,22 +1,34 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from connection import conectar_db  # Importa la función conectar_db desde database.py
+import connection  # Importa la función conectar_db desde database.py
 
 app = Flask(__name__)
-con = conectar_db()
+con = connection.conectar_db()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    cursor = con.cursor()
+    cursor.execute("SELECT * FROM cine.usuarios")
+    data = cursor.fetchall()
+    users = []
+    for i in range(0, len(data)):
+        users.append(data[i][1])
+    return render_template('index.html', users=users)
 
 @app.route('/home/<user>')
 def principal(user):
     user_title = user.title()
-    return render_template('principal.html', usuario = user_title)
+    cursor = con.cursor()
+    cursor.execute("SELECT * FROM cine.peliculas")
+    data = cursor.fetchall()
+    peliculas = []
+    for i in range(0, len(data)):
+        peliculas.append((data[i][1], data[i][5]))
+    return render_template('principal.html', usuario = user_title, peliculas = peliculas)
 
 # ========= Peliculas =========
 # Abrir pagina web
 @app.route('/home/<user>/<pelicula>')
-def pelicula(user, pelicula):
+def webPeli(user, pelicula):
     user_title = user.title()
     archivo = pelicula
     palabras = pelicula.split("-")  # Dividir la cadena en palabras usando "-" como separador
@@ -24,11 +36,11 @@ def pelicula(user, pelicula):
     return render_template('pelicula.html', contenido = texto_formateado, archivo = archivo, usuario = user_title)
 
 # Pedir pelicula
-@app.route('/peli', methods = ['POST'])
-def peli():
+@app.route('/getPeli', methods = ['POST'])
+def getPeli():
     data = request.json
-    nombre = data.get('nombre')
-    resultado = con.getPeli(con, nombre)
+    id = data.get('id')
+    resultado = con.getPeli(con, id)
     print(resultado)
     return jsonify(resultado)
 
