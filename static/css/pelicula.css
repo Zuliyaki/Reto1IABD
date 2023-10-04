@@ -111,9 +111,22 @@ header {
     margin-bottom: 6.25em;
 }
 
+.main-container .film-info {
+    display: flex;
+    flex-direction: row;
+}
+
 .main-container .titulo {
+    margin-right: 30px;
     font: 600 3.12em sans-serif;
     margin-bottom: 0.4em;
+}
+
+.main-container .puntuacion {
+    margin-right: 30px;
+    font: 600 0.9em sans-serif;
+    margin-bottom: 1.4em;
+    margin-top: 5.7em;
 }
 
 .main-container .descripcion {

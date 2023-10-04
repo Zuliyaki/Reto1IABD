@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{{contenido}}</title>
+    <title>{{datos["titulo"]}}</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename = 'css/pelicula.css')}}"
@@ -57,27 +57,30 @@
         <nav class="sub-nav">
           <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
           <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-          <a href="/"><i class="fas fa-user sub-nav-logo"></i>    {{usuario}}</a>
+          <a href="/"><i class="fas fa-user sub-nav-logo"></i> {{usuario}}</a>
         </nav>
       </header>
       <!-- END OF HEADER -->
 
       <!-- MAIN CONTAINER -->
       <main>
-        <div class="main-container" style="background: linear-gradient(rgba(0, 0, 0, .50) 0%, rgba(0, 0, 0, .50) 100%), url({{ url_for('static', filename = 'resources/images/' ~ archivo ~ '.jpg')}}); background-position: center center; background-size: cover;">
+        <div
+          class="main-container"
+          style="background: linear-gradient(rgba(0, 0, 0, .50) 0%, rgba(0, 0, 0, .50) 100%), url({{ url_for('static', filename = 'resources/images/'~ datos["codaName"] ~'.jpg')}}); background-position: center center; background-size: cover;"
+        >
           <div class="contenedor">
-            <h3 class="titulo">{{contenido}}</h3>
-            <p class="descripcion">
-              Narra las aventuras de un grupo de exploradores que hacen uso de
-              un agujero de gusano recientemente descubierto para superar las
-              limitaciones de los viajes espaciales tripulados y vencer las
-              inmensas distancias que tiene un viaje interestelar.
-            </p>
-            <button role="button" class="boton" onclick="dalePeli();">
-              <i class="fas fa-play" style="margin-right: 20px;"></i>Reproducir
+            <div class="film-info">
+              <h3 class="titulo">{{datos["titulo"]}}</h3>
+              <p class="puntuacion" id="reproducciones"><i class="fas fa-eye"></i>   {{datos["reproducciones"]}}</p>
+              <p class="puntuacion"><i class="fas fa-star" style="margin-bottom: 2px"></i>  {{datos["valoracion"]}}</p>
+            </div>
+            <p class="descripcion">{{datos["sinopsis"]}}</p>
+            <button role="button" class="boton" onClick="sumarReproduccion()">
+              <i class="fas fa-play" style="margin-right: 20px"></i>Reproducir
             </button>
             <button role="button" class="boton">
-              <i class="fas fa-plus" style="margin-right: 20px;"></i>Añadir a la lista
+              <i class="fas fa-plus" style="margin-right: 20px"></i>Añadir a la
+              lista
             </button>
           </div>
         </div>
@@ -119,26 +122,22 @@
     </div>
     <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  </body>
-  <script>
-    function dalePeli() {
-      alert(contenido)
-    }
-    alert(contenido)
-
-    var peli = {
-      id = 1
-    };
-
-    $.ajax({
-      url: '/peli'
-      type: 'POST'
-      dataType: 'json'
-      data: JSON.stringify(peli)
-      contentType: 'application/json'
-      success: function(response) {
-        alert(response)
+    <script>
+      function sumarReproduccion() {
+        // Realiza una solicitud AJAX para actualizar el valor en el servidor
+        $.ajax({
+          url: '/actualizarReproducciones',
+          type: 'PUT',
+          success: function(response) {
+            // Actualiza el valor mostrado en la página
+            $('#reproducciones').text(response);
+          },
+          error: function(error) {
+            // Lógica para manejar errores
+            alert('Error en la actualización: ' + error);
+          }
+        });
       }
-    });
-  </script>
+    </script>
+  </body>
 </html>

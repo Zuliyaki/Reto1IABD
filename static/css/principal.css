@@ -101,6 +101,7 @@ header {
 /* MAIN CONTIANER */
 .main-container {
     padding: 5%;
+    margin-top: -85px;
 }
 
 .box {

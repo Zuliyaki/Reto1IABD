@@ -22,9 +22,19 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         var scrollTopLink = document.getElementById("logo");
+        var scrollInicioLink = document.getElementById("inicio");
 
         // Detecta el evento de clic en el enlace
         scrollTopLink.addEventListener("click", function (event) {
+          event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+          // Desplaza la página hacia la parte superior
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth", // Animación de desplazamiento suave
+          });
+        });
+        scrollInicioLink.addEventListener("click", function (event) {
           event.preventDefault(); // Evita el comportamiento predeterminado del enlace
 
           // Desplaza la página hacia la parte superior
@@ -48,8 +58,8 @@
           /></a>
         </div>
         <nav class="main-nav">
-          <a href="/home/{{usuario.lower()}}">Inicio</a>
-          <a href="#">Series</a>
+          <a href="" id="inicio">Inicio</a>
+          <a href="" id="listas">Listas</a>
           <a href="#">Peliculas</a>
           <a href="#">Originales</a>
           <a href="#">Añadido recientemente</a>
@@ -65,7 +75,26 @@
       <!-- MAIN CONTAINER -->
       <section class="main-container">
         <div class="location" id="home">
-          <h1 id="home">Popular en Flixnet</h1>
+          <br/>
+          <h1>Popular en Flixnet</h1>
+          <br/>
+          <div class="box">
+            {% for peli in peliculas %}
+              <a href="/home/{{usuario.lower()}}/{{peli[1]}}">
+                <div class="content">
+                  <p>{{peli[0]}}</p>
+                </div>
+                <img
+                  src="{{ url_for('static', filename = 'resources/images/'~ peli[1] ~'.jpg')}}"
+                  alt=""
+                />
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="location" id="listas">
+          <br/>
+          <h1>Listas de reproducción</h1>
           <br/>
           <div class="box">
             {% for peli in peliculas %}
