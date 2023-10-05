@@ -34,6 +34,7 @@
             behavior: "smooth", // Animación de desplazamiento suave
           });
         });
+
         scrollInicioLink.addEventListener("click", function (event) {
           event.preventDefault(); // Evita el comportamiento predeterminado del enlace
 
@@ -43,6 +44,24 @@
             behavior: "smooth", // Animación de desplazamiento suave
           });
         });
+      });
+
+      var userName = $("#title").text();
+
+      $.ajax({
+        url: "/actualizarReproducciones",
+        type: "POST",
+        data: {
+          titulo: tituloPeli,
+        },
+        success: function (response) {
+          // Actualiza el valor mostrado en la página
+          $("#reproducciones").text(response);
+        },
+        error: function (error) {
+          // Lógica para manejar errores
+          alert("Error en la actualización: " + error);
+        },
       });
     </script>
   </head>
@@ -59,7 +78,7 @@
         </div>
         <nav class="main-nav">
           <a href="" id="inicio">Inicio</a>
-          <a href="" id="listas">Listas</a>
+          <a href="#listas">Listas</a>
           <a href="#">Peliculas</a>
           <a href="#">Originales</a>
           <a href="#">Añadido recientemente</a>
@@ -67,7 +86,12 @@
         <nav class="sub-nav">
           <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
           <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-          <a href="/"><i class="fas fa-user sub-nav-logo"></i>    {{usuario}}</a>
+          <div class="sub-nav-box">
+            <a href="/">
+              <i class="fas fa-user sub-nav-logo"></i>
+              <a href="/">{{usuario}}</a>
+            </a>
+          </div>
         </nav>
       </header>
       <!-- END OF HEADER -->
@@ -75,38 +99,39 @@
       <!-- MAIN CONTAINER -->
       <section class="main-container">
         <div class="location" id="home">
-          <br/>
+          <br />
           <h1>Popular en Flixnet</h1>
-          <br/>
+          <br />
           <div class="box">
             {% for peli in peliculas %}
-              <a href="/home/{{usuario.lower()}}/{{peli[1]}}">
-                <div class="content">
-                  <p>{{peli[0]}}</p>
-                </div>
-                <img
-                  src="{{ url_for('static', filename = 'resources/images/'~ peli[1] ~'.jpg')}}"
-                  alt=""
-                />
-              </a>
+            <a href="/home/{{usuario.lower()}}/{{peli[1]}}">
+              <div class="content">
+                <p>{{peli[0]}}</p>
+              </div>
+              <img
+                src="{{ url_for('static', filename = 'resources/images/'~ peli[1] ~'.jpg')}}"
+                alt=""
+              />
+            </a>
             {% endfor %}
           </div>
         </div>
         <div class="location" id="listas">
-          <br/>
+          <br />
           <h1>Listas de reproducción</h1>
-          <br/>
+          <br />
+          <h2>Nombre lista</h2>
           <div class="box">
             {% for peli in peliculas %}
-              <a href="/home/{{usuario.lower()}}/{{peli[1]}}">
-                <div class="content">
-                  <p>{{peli[0]}}</p>
-                </div>
-                <img
-                  src="{{ url_for('static', filename = 'resources/images/'~ peli[1] ~'.jpg')}}"
-                  alt=""
-                />
-              </a>
+            <a href="/home/{{usuario.lower()}}/{{peli[1]}}">
+              <div class="content">
+                <p>{{peli[0]}}</p>
+              </div>
+              <img
+                src="{{ url_for('static', filename = 'resources/images/'~ peli[1] ~'.jpg')}}"
+                alt=""
+              />
+            </a>
             {% endfor %}
           </div>
         </div>

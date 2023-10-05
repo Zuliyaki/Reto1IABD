@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{{datos["titulo"]}}</title>
+    <title id="title">{{datos["titulo"]}}</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename = 'css/pelicula.css')}}"
@@ -13,13 +13,29 @@
       href="{{ url_for('static', filename = 'resources/icon/icon.ico')}}"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"
-      integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9"
-      crossorigin="anonymous"
-    ></script>
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+      function sumrepro() {
+        var tituloPeli = $("#title").text();
+
+        $.ajax({
+          url: "/actualizarReproducciones",
+          type: "POST",
+          data: {
+            titulo: tituloPeli,
+          },
+          success: function (response) {
+            // Actualiza el valor mostrado en la página
+            $("#reproducciones").text(response);
+          },
+          error: function (error) {
+            // Lógica para manejar errores
+            alert("Error en la actualización: " + error);
+          },
+        });
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         var scrollTopLink = document.getElementById("logo");
 
@@ -35,6 +51,12 @@
         });
       });
     </script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"
+      integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="wrapper">
@@ -49,7 +71,7 @@
         </div>
         <nav class="main-nav">
           <a href="/home/{{usuario.lower()}}">Inicio</a>
-          <a href="#">Series</a>
+          <a href="/home/{{usuario.lower()}}#listas">Listas</a>
           <a href="#">Peliculas</a>
           <a href="#">Originales</a>
           <a href="#">Añadido recientemente</a>
@@ -57,32 +79,47 @@
         <nav class="sub-nav">
           <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
           <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-          <a href="/"><i class="fas fa-user sub-nav-logo"></i> {{usuario}}</a>
+          <div class="sub-nav-box">
+            <a href="/">
+              <i class="fas fa-user sub-nav-logo"></i>
+              <a href="/">{{usuario}}</a>
+            </a>
+          </div>
         </nav>
       </header>
       <!-- END OF HEADER -->
 
       <!-- MAIN CONTAINER -->
       <main>
-        <div
-          class="main-container"
-          style="background: linear-gradient(rgba(0, 0, 0, .50) 0%, rgba(0, 0, 0, .50) 100%), url({{ url_for('static', filename = 'resources/images/'~ datos["codaName"] ~'.jpg')}}); background-position: center center; background-size: cover;"
-        >
-          <div class="contenedor">
-            <div class="film-info">
-              <h3 class="titulo">{{datos["titulo"]}}</h3>
-              <p class="puntuacion" id="reproducciones"><i class="fas fa-eye"></i>   {{datos["reproducciones"]}}</p>
-              <p class="puntuacion"><i class="fas fa-star" style="margin-bottom: 2px"></i>  {{datos["valoracion"]}}</p>
+        <div class="main-container" style="background: linear-gradient(rgba(0,
+        0, 0, .50) 0%, rgba(0, 0, 0, .50) 100%), url({{ url_for('static',
+        filename = 'resources/images/'~ datos["codaName"] ~'.jpg')}});
+        background-position: center center; background-size: cover;" >
+        <div class="contenedor">
+          <div class="film-info">
+            <h3 class="titulo">{{datos["titulo"]}}</h3>
+            <div class="puntuacion">
+              <i class="fas fa-eye" style="margin-right: 5px"></i>
+              <p id="reproducciones">{{datos["reproducciones"]}}</p>
             </div>
-            <p class="descripcion">{{datos["sinopsis"]}}</p>
-            <button role="button" class="boton" onClick="sumarReproduccion()">
-              <i class="fas fa-play" style="margin-right: 20px"></i>Reproducir
-            </button>
-            <button role="button" class="boton">
-              <i class="fas fa-plus" style="margin-right: 20px"></i>Añadir a la
-              lista
-            </button>
+            <div class="puntuacion">
+              <i class="fas fa-star" style="margin-right: 5px"></i>
+              <p>{{datos["valoracion"]}}</p>
+            </div>
           </div>
+          <p class="descripcion">{{datos["sinopsis"]}}</p>
+          <button
+            type="button"
+            role="button"
+            class="boton"
+            onclick="sumrepro();"
+          >
+            <i class="fas fa-play" style="margin-right: 20px"></i>Reproducir
+          </button>
+          <button type="button" role="button" class="boton">
+            <i class="fas fa-plus" style="margin-right: 20px"></i>Añadir a una
+            lista
+          </button>
         </div>
       </main>
       <!-- END OF MAIN CONTAINER -->
@@ -120,24 +157,5 @@
         <p>Unai Bonilla & Unai Zuluaga &copy 2023</p>
       </footer>
     </div>
-    <!-- SCRIPTS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      function sumarReproduccion() {
-        // Realiza una solicitud AJAX para actualizar el valor en el servidor
-        $.ajax({
-          url: '/actualizarReproducciones',
-          type: 'PUT',
-          success: function(response) {
-            // Actualiza el valor mostrado en la página
-            $('#reproducciones').text(response);
-          },
-          error: function(error) {
-            // Lógica para manejar errores
-            alert('Error en la actualización: ' + error);
-          }
-        });
-      }
-    </script>
   </body>
 </html>

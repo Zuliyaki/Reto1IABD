@@ -6,7 +6,7 @@ def conectar_db():
             database="postgres",
             user="postgres",
             password="postgres",
-            host="192.168.21.252",
+            host="192.168.21.215",
             port="5432"
         )
         return conn
@@ -14,7 +14,7 @@ def conectar_db():
         print(f"Error al conectar a la base de datos: {e}")
         return None
     
-def getPeli(con, id):
+def getPeliId(con, id):
     cursor = con.cursor()
     cursor.execute("SELECT * FROM peliculas where id = %s", (id,))
     return cursor.fetchall()
