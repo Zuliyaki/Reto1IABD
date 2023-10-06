@@ -21,18 +21,19 @@ def principal(user):
     # Listas
     cursorLista = con.cursor()
     cursorLista.execute("SELECT lr.nombre AS nombre_lista, p.titulo AS nombre_pelicula FROM cine.usuarios u INNER JOIN cine.listasreproduccion lr ON u.userid = lr.userid LEFT JOIN cine.peliculasenlistas pl ON lr.playlistid = pl.playlistid LEFT JOIN cine.peliculas p ON pl.movieid = p.movieid WHERE u.nombre like %s", (user_title,))
-    listaReproduccion = cursorLista.fetchall()
     dictListas = {}
-    for i in range(0, len(listaReproduccion)):
-        dictListas[listaReproduccion[i][0]] = []
-        if listaReproduccion[i][0] in dictListas:
-            dictListas[listaReproduccion[i][0]].append(listaReproduccion[i][1].lower().replace(" ", "-"))
-            print(dictListas)
-        else:
-            dictListas[listaReproduccion[i][0]] = listaReproduccion[i][1].lower().replace(" ", "-")
-            print(dictListas)
 
-    print(dictListas)
+    try:
+        for row in cursorLista.fetchall():
+            nombre_lista = row[0]
+            nombre_pelicula = row[1]
+
+            if nombre_lista not in dictListas:
+                dictListas[nombre_lista] = []
+
+            dictListas[nombre_lista].append(nombre_pelicula.lower().replace(" ", "-"))
+    except:
+        dictListas = {'No hay listas': [""]}
     
     # Peliculas
     cursorPeli = con.cursor()
@@ -42,7 +43,7 @@ def principal(user):
     for i in range(0, len(datosPeli)):
         peliculas.append((datosPeli[i][1], datosPeli[i][5]))
         
-    return render_template('principal.html', usuario = user_title, peliculas = peliculas)
+    return render_template('principal.html', usuario = user_title, peliculas = peliculas, listas = dictListas)
 
 # ========= Peliculas =========
 # Abrir pagina web

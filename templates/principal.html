@@ -119,21 +119,22 @@
         <div class="location" id="listas">
           <br />
           <h1>Listas de reproducción</h1>
-          <br />
-          <h2>Nombre lista</h2>
+          {% for lista, peliculas in listas.items() %}
+          <h2>{{lista}}</h2>
           <div class="box">
             {% for peli in peliculas %}
-            <a href="/home/{{usuario.lower()}}/{{peli[1]}}">
+            <a href="/home/{{usuario.lower()}}/{{peli}}">
               <div class="content">
-                <p>{{peli[0]}}</p>
+                <p>{{peli}}</p>
               </div>
               <img
-                src="{{ url_for('static', filename = 'resources/images/'~ peli[1] ~'.jpg')}}"
+                src="{{ url_for('static', filename = 'resources/images/'~ peli ~'.jpg')}}"
                 alt=""
               />
             </a>
             {% endfor %}
           </div>
+          {% endfor %}
         </div>
       </section>
       <!-- END OF MAIN CONTAINER -->
