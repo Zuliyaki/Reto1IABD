@@ -16,7 +16,7 @@
     <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      function sumrepro() {
+      function addRepro() {
         var tituloPeli = $("#title").text();
 
         $.ajax({
@@ -34,6 +34,10 @@
             alert("Error en la actualización: " + error);
           },
         });
+      }
+
+      function addToPlaylist() {
+        alert("Hola")
       }
 
       document.addEventListener("DOMContentLoaded", function () {
@@ -112,11 +116,16 @@
             type="button"
             role="button"
             class="boton"
-            onclick="sumrepro();"
+            onclick="addRepro();"
           >
             <i class="fas fa-play" style="margin-right: 20px"></i>Reproducir
           </button>
-          <button type="button" role="button" class="boton">
+          <button
+            type="button"
+            role="button"
+            class="boton"
+            onclick="addToPlaylist();"
+          >
             <i class="fas fa-plus" style="margin-right: 20px"></i>Añadir a una
             lista
           </button>
