@@ -163,6 +163,23 @@ header {
     border-radius: 2px;
 }
 
+.main-container .boton {
+    background: rgba(78, 78, 78, 0.5);
+    border: none;
+    border-radius: 0.31em;
+    padding: 0.93em 1.87em;
+    color: var(--light);
+    margin-right: 1.25em;
+    cursor: pointer;
+    transition: .3s ease all;
+    font: 500 1.12em sans-serif;
+}
+
+.main-container .boton:hover {
+    background: rgba(255, 255, 255, 0.8);;
+    color: var(--primary);
+}
+
 /* LINKS */
 .link {
     padding: 5%;

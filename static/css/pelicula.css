@@ -168,7 +168,7 @@ header {
     margin-right: 1.25em;
     cursor: pointer;
     transition: .3s ease all;
-    font-size: 1.12em;
+    font: 400 1.12em sans-serif;
 }
 
 .main-container .boton:hover {

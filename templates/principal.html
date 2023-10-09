@@ -12,6 +12,7 @@
       type="image/x-icon"
       href="{{ url_for('static', filename = 'resources/icon/icon.ico')}}"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script
       defer
@@ -45,24 +46,6 @@
           });
         });
       });
-
-      var userName = $("#title").text();
-
-      $.ajax({
-        url: "/actualizarReproducciones",
-        type: "POST",
-        data: {
-          titulo: tituloPeli,
-        },
-        success: function (response) {
-          // Actualiza el valor mostrado en la página
-          $("#reproducciones").text(response);
-        },
-        error: function (error) {
-          // Lógica para manejar errores
-          alert("Error en la actualización: " + error);
-        },
-      });
     </script>
   </head>
   <body>
@@ -89,7 +72,7 @@
           <div class="sub-nav-box">
             <a href="/">
               <i class="fas fa-user sub-nav-logo"></i>
-              <a href="/">{{usuario}}</a>
+              <a href="/" id="user">{{usuario}}</a>
             </a>
           </div>
         </nav>
@@ -119,7 +102,7 @@
         <div class="location" id="listas">
           <br />
           <h1>Listas de reproducción</h1>
-          {% for lista, peliculas in listas.items() %}
+          {% if listas %} {% for lista, peliculas in listas.items() %}
           <h2>{{lista}}</h2>
           <div class="box">
             {% for peli in peliculas %}
@@ -135,6 +118,26 @@
             {% endfor %}
           </div>
           {% endfor %}
+          <br />
+          <br />
+          <button
+            type="button"
+            role="button"
+            class="boton"
+            onclick="createplaylist()"
+          >
+            <i class="fas fa-list-ul" style="margin-right: 20px"></i>Nueva lista
+            de reproduccion</button
+          >{% else %} <br />
+          <button
+            type="button"
+            role="button"
+            class="boton"
+            onclick="createplaylist()"
+          >
+            <i class="fas fa-list-ul" style="margin-right: 20px"></i>Crear lista
+            de reproduccion</button
+          >{% endif %}
         </div>
       </section>
       <!-- END OF MAIN CONTAINER -->
@@ -172,5 +175,42 @@
         <p>Unai Bonilla & Unai Zuluaga &copy 2023</p>
       </footer>
     </div>
+    <script>
+      function createplaylist() {
+        var nombreLista = prompt(
+          "Introduce el nombre de la lista de reproducción:"
+        );
+        var userNombre = $("#user").text();
+
+        if (nombreLista !== null && nombreLista !== "") {
+          var xhr = new XMLHttpRequest();
+          var url = "/agregar_lista"; // Reemplaza con la URL correcta de tu servidor Python
+
+          // Crear un objeto FormData para enviar los datos
+          var formData = new FormData();
+          formData.append("nombre", nombreLista);
+          formData.append("usuario", userNombre);
+
+          xhr.open("POST", url, true);
+
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                // La solicitud se completó con éxito
+                alert("Lista de reproducción agregada con éxito.");
+              } else {
+                // Ocurrió un error en la solicitud
+                alert("Error al agregar la lista de reproducción.");
+              }
+            }
+          };
+
+          // Enviar la solicitud con el objeto FormData
+          xhr.send(formData);
+        } else {
+          alert("Creación de lista de reproducción cancelada.");
+        }
+      }
+    </script>
   </body>
 </html>

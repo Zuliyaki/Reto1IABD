@@ -6,7 +6,7 @@ def conectar_db():
             database="postgres",
             user="postgres",
             password="postgres",
-            host="192.168.22.35",
+            host="192.168.22.57",
             port="5432"
         )
         return conn
