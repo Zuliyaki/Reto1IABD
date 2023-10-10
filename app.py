@@ -16,24 +16,35 @@ def index():
 
 @app.route('/home/<user>')
 def principal(user):
-    user_title = user.title()
+    cursorUser = con.cursor()
+    cursorUser.execute("SELECT * FROM cine.usuarios")
+    usuarios = cursorUser.fetchall()
     
-    # Listas
-    cursorLista = con.cursor()
-    cursorLista.execute("SELECT lr.nombre AS nombre_lista, p.titulo AS nombre_pelicula FROM cine.usuarios u INNER JOIN cine.listasreproduccion lr ON u.userid = lr.userid LEFT JOIN cine.peliculasenlistas pl ON lr.playlistid = pl.playlistid LEFT JOIN cine.peliculas p ON pl.movieid = p.movieid WHERE u.nombre like %s", (user_title,))
-    dictListas = {}
-
-    try:
-        for row in cursorLista.fetchall():
-            nombre_lista = row[0]
-            nombre_pelicula = row[1]
-
-            if nombre_lista not in dictListas:
-                dictListas[nombre_lista] = []
-
-            dictListas[nombre_lista].append(nombre_pelicula.lower().replace(" ", "-"))
-    except:
+    if any(user.title() == usuario[1] for usuario in usuarios):
+        user_title = user.title()
+        
+        # Listas
+        cursorLista = con.cursor()
+        cursorLista.execute("SELECT lr.nombre AS nombre_lista, p.titulo AS nombre_pelicula FROM cine.usuarios u INNER JOIN cine.listasreproduccion lr ON u.userid = lr.userid LEFT JOIN cine.peliculasenlistas pl ON lr.playlistid = pl.playlistid LEFT JOIN cine.peliculas p ON pl.movieid = p.movieid WHERE u.nombre like %s", (user_title,))
         dictListas = {}
+
+        try:
+            for row in cursorLista.fetchall():
+                nombre_lista = row[0]
+                nombre_pelicula = row[1]
+
+                if nombre_lista not in dictListas:
+                    dictListas[nombre_lista] = []
+                
+                if nombre_pelicula is None:
+                    dictListas[nombre_lista].append("Lista sin peliculas")
+                else:
+                    dictListas[nombre_lista].append(nombre_pelicula.lower().replace("-", " ").title())
+                    
+        except:
+            print('Salio mal')
+    else:
+        return render_template('pnf.html'), 404
     
     # Peliculas
     cursorPeli = con.cursor()
@@ -70,20 +81,17 @@ def webPeli(user, pelicula):
             'sinopsis': data[0][3],
             'codaName': archivo
         }
-        return render_template('pelicula.html', usuario = user_name, datos = infoPeli)
+        
+        cursorListas = con.cursor()
+        cursorListas.execute("SELECT lr.nombre FROM cine.listasreproduccion lr, cine.usuarios u WHERE lr.userid = u.userid AND u.nombre like %s", (user_name,))
+        listas = cursorListas.fetchall()
+        
+        return render_template('pelicula.html', usuario = user_name, datos = infoPeli, listas = listas)
     else:
         return render_template('pnf.html'), 404
 
-# Pedir pelicula
-@app.route('/getPeliId', methods = ['POST'])
-def getPeliId():
-    data = request.json
-    id = data.get('id')
-    resultado = con.getPeliId(con, id)
-    print(resultado)
-    return jsonify(resultado)
-
-@app.route('/actualizarReproducciones', methods=['POST', 'PUT'])
+# Actualizar reproducciones
+@app.route('/actualizar_reproducciones', methods=['POST', 'PUT'])
 def actualizar_reproducciones():
     try:
         titulo = request.form['titulo']
@@ -104,25 +112,35 @@ def actualizar_reproducciones():
 def agregar_lista():
     nombre_lista = request.form.get('nombre')
     usuario = request.form.get('usuario')
-    
-    print(nombre_lista, usuario)
 
     try:
         cursor = con.cursor()
-        cursor.callproc("add_playlist", (usuario, nombre_lista))
+        cursor.execute("CALL cine.add_playlist( %s, %s)", (usuario, nombre_lista, ))
         con.commit()
-
-        print(f"La lista '{nombre_lista}' se ha agregado correctamente.")
 
         return "OK", 200
     except Exception as e:
         print(e)
         return "ERROR", 500
+    
+# Actualizar reproducciones
+@app.route('/agregar_a_lista', methods=['POST', 'PUT'])
+def agregar_a_lista():
+    try:
+        nombrePeli = request.form['nombrePeli']
+        nombreLista = request.form['nombreLista']
+        user = request.form['user']
         
-
-@app.errorhandler(404)
-def page_not_found():
-    return render_template('pnf.html'), 404
+        print(nombrePeli, nombreLista, user)
+        
+        cursor = con.cursor()
+        cursor.execute("INSERT INTO cine.peliculasenlistas (playlistid, movieid) VALUES ((SELECT playlistid FROM cine.listasreproduccion lr, cine.usuarios u WHERE lr.nombre = %s AND lr.userid = u.userid AND u.nombre like %s), (SELECT movieid FROM cine.peliculas WHERE titulo = %s))", (nombreLista, user, nombrePeli,))
+        con.commit()
+        print("No fallo")
+    except Exception as e:
+        # Manejo de errores
+        con.rollback()
+        return 'Error en la actualización: ' + str(e)
 
 if __name__ == '__main__':
     app.run(debug=True)

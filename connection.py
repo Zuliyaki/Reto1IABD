@@ -13,13 +13,3 @@ def conectar_db():
     except Exception as e:
         print(f"Error al conectar a la base de datos: {e}")
         return None
-    
-def getPeliId(con, id):
-    cursor = con.cursor()
-    cursor.execute("SELECT * FROM peliculas where id = %s", (id,))
-    return cursor.fetchall()
-
-def getUsers(con):
-    cursor = con.cursor()
-    cursor.execute("SELECT * FROM usuarios")
-    return cursor.fetchall()

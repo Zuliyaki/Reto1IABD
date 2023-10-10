@@ -53,7 +53,7 @@
       <!-- HEADER -->
       <header>
         <div class="flixnetLogo">
-          <a id="logo" href="#"
+          <a id="logo" href="#nohagonada"
             ><img
               src="{{ url_for('static', filename = 'resources/images/logo.png')}}"
               alt="Logo Image"
@@ -62,13 +62,13 @@
         <nav class="main-nav">
           <a href="" id="inicio">Inicio</a>
           <a href="#listas">Listas</a>
-          <a href="#">Peliculas</a>
-          <a href="#">Originales</a>
-          <a href="#">Añadido recientemente</a>
+          <a href="#nohagonada">Peliculas</a>
+          <a href="#nohagonada">Originales</a>
+          <a href="#nohagonada">Añadido recientemente</a>
         </nav>
         <nav class="sub-nav">
-          <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
-          <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
+          <a href="#nohagonada"><i class="fas fa-search sub-nav-logo"></i></a>
+          <a href="#nohagonada"><i class="fas fa-bell sub-nav-logo"></i></a>
           <div class="sub-nav-box">
             <a href="/">
               <i class="fas fa-user sub-nav-logo"></i>
@@ -105,16 +105,19 @@
           {% if listas %} {% for lista, peliculas in listas.items() %}
           <h2>{{lista}}</h2>
           <div class="box">
-            {% for peli in peliculas %}
-            <a href="/home/{{usuario.lower()}}/{{peli}}">
-              <div class="content">
+            {% for peli in peliculas %} 
+              {% if peli == "Lista sin peliculas" %}
                 <p>{{peli}}</p>
-              </div>
-              <img
-                src="{{ url_for('static', filename = 'resources/images/'~ peli ~'.jpg')}}"
-                alt=""
-              />
-            </a>
+              {% else %}
+                <a href="/home/{{usuario.lower()}}/{{peli.lower().replace(" ", "-")}}">
+                  <div class="content">
+                    <p>{{peli}}</p>
+                  </div>
+                  <img
+                    src="{{ url_for('static', filename = 'resources/images/'~ peli.lower().replace(" ", "-") ~'.jpg')}}"
+                    alt=""
+                  /> </a>
+              {% endif %}
             {% endfor %}
           </div>
           {% endfor %}
@@ -145,25 +148,25 @@
       <!-- LINKS -->
       <section class="link">
         <div class="logos">
-          <a href=""><i class="fab fa-facebook-square fa-2x logo"></i></a>
-          <a href="#"><i class="fab fa-instagram fa-2x logo"></i></a>
-          <a href="#"><i class="fab fa-twitter fa-2x logo"></i></a>
-          <a href="#"><i class="fab fa-youtube fa-2x logo"></i></a>
+          <a href="#nohagonada"><i class="fab fa-facebook-square fa-2x logo"></i></a>
+          <a href="#nohagonada"><i class="fab fa-instagram fa-2x logo"></i></a>
+          <a href="#nohagonada"><i class="fab fa-twitter fa-2x logo"></i></a>
+          <a href="#nohagonada"><i class="fab fa-youtube fa-2x logo"></i></a>
         </div>
         <div class="sub-links">
           <ul>
-            <li><a href="#">Audio y Subtitulos</a></li>
-            <li><a href="#">Descripcion de Audio</a></li>
-            <li><a href="#">Centro de Ayuda</a></li>
-            <li><a href="#">Tarjeta regalo</a></li>
-            <li><a href="#">Centro de Prensa</a></li>
-            <li><a href="#">Inversores</a></li>
-            <li><a href="#">Trabajos</a></li>
-            <li><a href="#">Terminos de Uso</a></li>
-            <li><a href="#">Privacidad</a></li>
-            <li><a href="#">Noticias Legales</a></li>
-            <li><a href="#">Informacion Corporativa</a></li>
-            <li><a href="#">Contactanos</a></li>
+            <li><a href="#nohagonada">Audio y Subtitulos</a></li>
+            <li><a href="#nohagonada">Descripcion de Audio</a></li>
+            <li><a href="#nohagonada">Centro de Ayuda</a></li>
+            <li><a href="#nohagonada">Tarjeta regalo</a></li>
+            <li><a href="#nohagonada">Centro de Prensa</a></li>
+            <li><a href="#nohagonada">Inversores</a></li>
+            <li><a href="#nohagonada">Trabajos</a></li>
+            <li><a href="#nohagonada">Terminos de Uso</a></li>
+            <li><a href="#nohagonada">Privacidad</a></li>
+            <li><a href="#nohagonada">Noticias Legales</a></li>
+            <li><a href="#nohagonada">Informacion Corporativa</a></li>
+            <li><a href="#nohagonada">Contactanos</a></li>
           </ul>
         </div>
       </section>
@@ -198,6 +201,7 @@
               if (xhr.status === 200) {
                 // La solicitud se completó con éxito
                 alert("Lista de reproducción agregada con éxito.");
+                location.reload();
               } else {
                 // Ocurrió un error en la solicitud
                 alert("Error al agregar la lista de reproducción.");
