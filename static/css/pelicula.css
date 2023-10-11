@@ -102,9 +102,10 @@ header {
     vertical-align: middle;
     margin-left: 6px;
 }
-.sub-nav > a:hover,
+
+.sub-nav>a:hover,
 .sub-nav .sub-nav-box:hover,
-.sub-nav .sub-nav-box:hover > a {
+.sub-nav .sub-nav-box:hover>a {
     color: var(--dark);
 }
 
@@ -176,6 +177,42 @@ header {
     color: var(--primary);
 }
 
+form {
+    padding-top: 20px;
+    max-width: 300px;
+}
+
+label {
+    display: block;
+    font: 600 1.1em sans-serif;
+    color: #fff;
+}
+
+input[type="number"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 8px;
+    font: 600 1em sans-serif;
+    border: 1px solid #575757;
+    border-radius: 2px;
+}
+
+input[type="submit"] {
+    background-color: rgba(255, 8, 16, 0.5);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font: 600 0.9em sans-serif;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #b40912;
+}
+
+/* Estilos para el contenido del modal */
 .modal {
     display: none;
     position: fixed;
@@ -187,7 +224,6 @@ header {
     z-index: 1;
 }
 
-/* Estilos para el contenido del modal */
 .contenidoModal {
     background-color: #3a3a3a;
     margin: 10% auto;
@@ -220,12 +256,10 @@ select {
     cursor: pointer;
 }
 
-/* Estilos para el botón de cerrar al pasar el mouse */
 .boton-cerrar:hover {
     background-color: #c94040;
 }
 
-/* Estilos para el botón de guardar */
 .boton-seleccionar {
     background-color: #4CAF50;
     color: white;
@@ -234,7 +268,6 @@ select {
     cursor: pointer;
 }
 
-/* Estilos para el botón de guardar al pasar el mouse */
 .boton-seleccionar:hover {
     background-color: #45a049;
 }
@@ -268,7 +301,7 @@ select {
     padding-right: 10px;
 }
 
-.sub-links a .fas{
+.sub-links a .fas {
     margin-right: 50px;
 }
 
@@ -344,7 +377,7 @@ footer {
         margin: auto;
         padding-right: 20px;
     }
-    
+
     h3 {
         text-align: center;
         font: 900 18px sans-serif;

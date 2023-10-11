@@ -25,27 +25,57 @@
         var scrollTopLink = document.getElementById("logo");
         var scrollInicioLink = document.getElementById("inicio");
 
-        // Detecta el evento de clic en el enlace
         scrollTopLink.addEventListener("click", function (event) {
-          event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+          event.preventDefault();
 
-          // Desplaza la página hacia la parte superior
           window.scrollTo({
             top: 0,
-            behavior: "smooth", // Animación de desplazamiento suave
+            behavior: "smooth",
           });
         });
 
         scrollInicioLink.addEventListener("click", function (event) {
-          event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+          event.preventDefault();
 
-          // Desplaza la página hacia la parte superior
           window.scrollTo({
             top: 0,
-            behavior: "smooth", // Animación de desplazamiento suave
+            behavior: "smooth",
           });
         });
       });
+
+      function createplaylist() {
+        var nombreLista = prompt(
+          "Introduce el nombre de la lista de reproducción:"
+        );
+        var userNombre = $("#user").text();
+
+        if (nombreLista !== null && nombreLista !== "") {
+          var xhr = new XMLHttpRequest();
+          var url = "/agregar_lista";
+
+          var formData = new FormData();
+          formData.append("nombre", nombreLista);
+          formData.append("usuario", userNombre);
+
+          xhr.open("POST", url, true);
+
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                alert("Lista de reproducción agregada con éxito.");
+                location.reload();
+              } else {
+                alert("Error al agregar la lista de reproducción.");
+              }
+            }
+          };
+
+          xhr.send(formData);
+        } else {
+          alert("Creación de lista de reproducción cancelada.");
+        }
+      }
     </script>
   </head>
   <body>
@@ -178,43 +208,5 @@
         <p>Unai Bonilla & Unai Zuluaga &copy 2023</p>
       </footer>
     </div>
-    <script>
-      function createplaylist() {
-        var nombreLista = prompt(
-          "Introduce el nombre de la lista de reproducción:"
-        );
-        var userNombre = $("#user").text();
-
-        if (nombreLista !== null && nombreLista !== "") {
-          var xhr = new XMLHttpRequest();
-          var url = "/agregar_lista"; // Reemplaza con la URL correcta de tu servidor Python
-
-          // Crear un objeto FormData para enviar los datos
-          var formData = new FormData();
-          formData.append("nombre", nombreLista);
-          formData.append("usuario", userNombre);
-
-          xhr.open("POST", url, true);
-
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-              if (xhr.status === 200) {
-                // La solicitud se completó con éxito
-                alert("Lista de reproducción agregada con éxito.");
-                location.reload();
-              } else {
-                // Ocurrió un error en la solicitud
-                alert("Error al agregar la lista de reproducción.");
-              }
-            }
-          };
-
-          // Enviar la solicitud con el objeto FormData
-          xhr.send(formData);
-        } else {
-          alert("Creación de lista de reproducción cancelada.");
-        }
-      }
-    </script>
   </body>
 </html>

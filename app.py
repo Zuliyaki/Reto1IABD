@@ -120,27 +120,56 @@ def agregar_lista():
 
         return "OK", 200
     except Exception as e:
-        print(e)
+        con.rollback()
+        print('Error agregando lista: ' + str(e))
         return "ERROR", 500
     
 # Actualizar reproducciones
-@app.route('/agregar_a_lista', methods=['POST', 'PUT'])
+@app.route('/agregar_a_lista', methods=['POST'])
 def agregar_a_lista():
     try:
-        nombrePeli = request.form['nombrePeli']
-        nombreLista = request.form['nombreLista']
-        user = request.form['user']
-        
-        print(nombrePeli, nombreLista, user)
+        nombrePeli = request.form.get('nombrePeli')
+        nombreLista = request.form.get('nombreLista')
+        user = request.form.get('user')
         
         cursor = con.cursor()
         cursor.execute("INSERT INTO cine.peliculasenlistas (playlistid, movieid) VALUES ((SELECT playlistid FROM cine.listasreproduccion lr, cine.usuarios u WHERE lr.nombre = %s AND lr.userid = u.userid AND u.nombre like %s), (SELECT movieid FROM cine.peliculas WHERE titulo = %s))", (nombreLista, user, nombrePeli,))
         con.commit()
-        print("No fallo")
+        
+        return "OK", 200
     except Exception as e:
-        # Manejo de errores
         con.rollback()
-        return 'Error en la actualización: ' + str(e)
+        print('Error agregando a lista: ' + str(e))
+        return "ERROR", 500
+
+# Añadir calificacion
+@app.route('/agregar_calificacion', methods=['POST'])
+def agregar_calificacion():
+    try:
+        user = request.form.get('user')
+        nombrePeli = request.form.get('nombrePeli')
+        calificacion = request.form.get('calificacion')
+        
+        cursorCalifi = con.cursor()
+        cursorCalifi.execute("SELECT c.* FROM cine.calificaciones c, cine.usuarios u, cine.peliculas p WHERE u.nombre like %s AND titulo = %s AND u.userid = c.userid AND p.movieid = c.movieid", (user, nombrePeli,))
+        existeCalificacion = cursorCalifi.fetchall()
+        
+        print(len(existeCalificacion))
+        
+        if len(existeCalificacion) == 0:
+            cursor = con.cursor()
+            cursor.execute("INSERT INTO cine.calificaciones (userid, movieid, calificacion, visto) VALUES ((SELECT userid FROM cine.usuarios u WHERE nombre like %s),  (SELECT movieid FROM cine.peliculas WHERE titulo like %s), %s, true)", (user, nombrePeli, calificacion,))
+            con.commit()
+        else:
+            cursor = con.cursor()
+            cursor.execute("UPDATE cine.calificaciones SET calificacion = %s WHERE userid = (SELECT userid FROM cine.usuarios where nombre like %s) AND movieid = (SELECT movieid FROM cine.peliculas WHERE titulo = %s)", (calificacion, user, nombrePeli,))
+            con.commit()
+        
+        return "OK", 200
+    except Exception as e:
+        con.rollback()
+        print('Error calificando: ' + str(e))
+        return "ERROR", 500
 
 if __name__ == '__main__':
     app.run(debug=True)

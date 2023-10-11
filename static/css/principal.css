@@ -107,9 +107,10 @@ header {
     vertical-align: middle;
     margin-left: 6px;
 }
-.sub-nav > a:hover,
+
+.sub-nav>a:hover,
 .sub-nav .sub-nav-box:hover,
-.sub-nav .sub-nav-box:hover > a {
+.sub-nav .sub-nav-box:hover>a {
     color: var(--dark);
 }
 
@@ -176,7 +177,7 @@ header {
 }
 
 .main-container .boton:hover {
-    background: rgba(255, 255, 255, 0.8);;
+    background: rgba(255, 255, 255, 0.8);
     color: var(--primary);
 }
 

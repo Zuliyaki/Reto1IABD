@@ -26,11 +26,9 @@
             titulo: tituloPeli,
           },
           success: function (response) {
-            // Actualiza el valor mostrado en la página
             $("#reproducciones").text(response);
           },
           error: function (error) {
-            // Lógica para manejar errores
             alert("Error en la actualización: " + error);
           },
         });
@@ -39,14 +37,12 @@
       document.addEventListener("DOMContentLoaded", function () {
         var scrollTopLink = document.getElementById("logo");
 
-        // Detecta el evento de clic en el enlace
         scrollTopLink.addEventListener("click", function (event) {
-          event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+          event.preventDefault();
 
-          // Desplaza la página hacia la parte superior
           window.scrollTo({
             top: 0,
-            behavior: "smooth", // Animación de desplazamiento suave
+            behavior: "smooth",
           });
         });
       });
@@ -58,41 +54,72 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      // Función para abrir la ventana modal
       function abrirModal() {
         document.getElementById("myModal").style.display = "block";
       }
 
-      // Función para cerrar la ventana modal
       function cerrarModal() {
         document.getElementById("myModal").style.display = "none";
       }
 
-      // Función para guardar la selección del ComboBox
       function seleccionar() {
         var comboBox = document.getElementById("comboBox");
         var seleccion = comboBox.options[comboBox.selectedIndex].text;
         var tituloPeli = $("#title").text();
         var user = $("#user").text();
 
-        $.ajax({
-          url: "/agregar_a_lista",
-          type: "POST",
-          data: {
-            nombreLista: seleccion,
-            nombrePeli: tituloPeli,
-            user: user,
-          },
-          success: function (response) {
-            // Actualiza el valor mostrado en la página
-            alert("Añadido a la lista correctamente");
-          },
-          error: function (error) {
-            // Lógica para manejar errores
-            alert("Error añadiendo a la lista");
-          },
-        });
+        var xhr = new XMLHttpRequest();
+        var url = "/agregar_a_lista";
+
+        var formData = new FormData();
+        formData.append("nombreLista", seleccion);
+        formData.append("nombrePeli", tituloPeli);
+        formData.append("user", user);
+
+        xhr.open("POST", url, true);
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              alert("Agregada a lista de reproducción con éxito.");
+              location.reload();
+            } else {
+              alert("Error al agregar a la lista de reproducción.");
+            }
+          }
+        };
+
+        xhr.send(formData);
         cerrarModal();
+      }
+
+      function calificar() {
+        var user = $("#user").text();
+        var tituloPeli = $("#title").text();
+        var calificacion = document.getElementById("calificacion").value.replace(",", ".");
+
+        var xhr = new XMLHttpRequest();
+        var url = "/agregar_calificacion";
+
+        var formData = new FormData();
+        formData.append("user", user);
+        formData.append("nombrePeli", tituloPeli);
+        formData.append("calificacion", calificacion);
+
+        xhr.open("POST", url, true);
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              alert("Calificado con éxito.");
+              location.reload();
+            } else {
+              alert("Error en la calificación.");
+            }
+          }
+        };
+
+        xhr.send(formData);
       }
     </script>
   </head>
@@ -163,6 +190,19 @@
             <i class="fas fa-plus" style="margin-right: 20px"></i>Añadir a una
             lista
           </button>
+          <form onsubmit="return false;">
+            <label for="calificacion">Calificación:</label>
+            <input
+              type="number"
+              id="calificacion"
+              name="calificacion"
+              min="0"
+              max="9.9"
+              step="0.1"
+              required
+            />
+            <input type="submit" value="Calificar" onclick="calificar()" />
+          </form>
           <div id="myModal" class="modal">
             <div class="contenidoModal">
               <span
